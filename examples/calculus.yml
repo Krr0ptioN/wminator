@@ -1,0 +1,36 @@
+# i3nator example: calculus study workspace
+#
+# Left half:  tmux session (editor + git + server) via tmuxinator
+# Right half: stacked PDF viewers (textbook + homework)
+#
+# Usage:
+#   i3nator open calculus
+#   i3nator open examples/calculus.yml   # or load by path
+
+name: calculus
+workspace: 5
+workspace_name: "calculus"
+terminal: wezterm
+
+layout:
+  split: horizontal
+  children:
+    - window:
+        command: "tmuxinator start calculus"
+        type: terminal
+        ratio: 50
+    - container:
+        layout: stacked
+        ratio: 50
+        children:
+          - window:
+              command: "zathura '~/rsc/calculus-textbook.pdf'"
+              type: app
+              match:
+                class: Zathura
+          - window:
+              command: "zathura '~/homework.pdf'"
+              type: app
+              match:
+                class: Zathura
+                title: "homework"

@@ -120,9 +120,12 @@ def _validate_container(node: dict, path: str, source: str) -> None:
     if "split" in node and node["split"] not in VALID_SPLITS:
         raise ValidationError(f"{source}: {path}.split: must be one of {VALID_SPLITS}")
 
-    if "layout" in node and isinstance(node["layout"], str):
-        if node["layout"] not in VALID_LAYOUTS:
-            raise ValidationError(f"{source}: {path}.layout: must be one of {VALID_LAYOUTS}")
+    if (
+        "layout" in node
+        and isinstance(node["layout"], str)
+        and node["layout"] not in VALID_LAYOUTS
+    ):
+        raise ValidationError(f"{source}: {path}.layout: must be one of {VALID_LAYOUTS}")
 
     for i, child in enumerate(children):
         if not isinstance(child, dict):

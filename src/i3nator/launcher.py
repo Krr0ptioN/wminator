@@ -23,17 +23,17 @@ def build_terminal_command(terminal: str, command: str) -> list[str]:
 
     if term in ("wezterm", "wezterm-gui"):
         return ["wezterm", "start", "--", "sh", "-c", cmd]
-    elif term in ("alacritty",):
+    if term in ("alacritty",):
         return ["alacritty", "-e", "sh", "-c", cmd]
-    elif term in ("kitty",):
+    if term in ("kitty",):
         return ["kitty", "sh", "-c", cmd]
-    elif term in ("st", "suckless"):
+    if term in ("st", "suckless"):
         return ["st", "-e", "sh", "-c", cmd]
-    elif term in ("xterm",):
+
+    if term in ("xterm",):
         return ["xterm", "-e", cmd]
-    else:
-        # Generic: assume "-e" flag works
-        return [terminal, "-e", "sh", "-c", cmd]
+
+    return [terminal, "-e", "sh", "-c", cmd]
 
 
 def build_app_command(command: str) -> list[str]:

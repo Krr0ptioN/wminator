@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Install stable Rust
+        run: rustup toolchain install stable --profile minimal --component rustfmt,clippy
+      - run: cargo +stable fmt --check
+      - run: cargo +stable clippy --all-targets --all-features -- -D warnings
+      - name: Enforce production safety lints
+        run: cargo +stable clippy --lib --bins --all-features -- -D warnings -D clippy::unwrap_used -D clippy::expect_used -F unsafe-code
+      - run: cargo +stable test --all-features --locked
+
+  compile:
+    strategy:
+      matrix:
+        toolchain: ["1.85.0", stable]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Install Rust ${{ matrix.toolchain }}
+        run: rustup toolchain install '${{ matrix.toolchain }}' --profile minimal
+      - run: cargo '+${{ matrix.toolchain }}' check --all-features --locked
+

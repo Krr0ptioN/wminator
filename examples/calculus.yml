@@ -1,11 +1,11 @@
-# i3nator example: calculus study workspace
+# wminator example: calculus study workspace
 #
 # Left half:  tmux session (editor + git + server) via tmuxinator
 # Right half: stacked PDF viewers (textbook + homework)
 #
 # Usage:
-#   i3nator open calculus
-#   i3nator open examples/calculus.yml   # or load by path
+#   wminator open calculus
+#   wminator open examples/calculus.yml   # or load by path
 
 name: calculus
 workspace: 5

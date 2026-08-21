@@ -1,0 +1,45 @@
+[package]
+name = "wminator"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+description = "Declarative workspace layout manager for i3 and Sway"
+license = "MIT"
+repository = "https://github.com/Krr0ptioN/wminator"
+keywords = ["i3", "sway", "workspace", "layout", "tiling"]
+categories = ["command-line-utilities"]
+
+[lib]
+name = "wminator"
+
+[[bin]]
+name = "wminator"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1.0"
+async-recursion = "1.1"
+async-trait = "0.1"
+clap = { version = "4.5", features = ["derive"] }
+futures-util = "0.3"
+serde = { version = "1.0", features = ["derive"] }
+serde_path_to_error = "0.1"
+shell-words = "1.1"
+swayipc-async = "3.0"
+thiserror = "2.0"
+tokio = { version = "1.47", features = ["macros", "process", "rt", "time"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+yaml_serde = "0.10"
+
+[dev-dependencies]
+tempfile = "3.20"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+

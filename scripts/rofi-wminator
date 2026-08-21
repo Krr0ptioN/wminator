@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Standalone Rofi launcher for wminator.
+set -euo pipefail
+
+selection=$(wminator list | rofi -dmenu -i -p "wminator:" -theme vercel-premium)
+if [ -n "$selection" ]; then
+    wminator open "$selection"
+fi
